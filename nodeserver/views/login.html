@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <link  rel="stylesheet"  href="/node_modules/bootstrap/dist/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="/public/css/index.css">
+</head>
+<body>
+{{ include './hander.html'}}
+<div class="longin">
+    <h1>用户登录</h1>
+    <form class="form-group" id="formlog" action="/login" method="post">
+        <dl>
+            <dt>邮箱：<input name="email" class="form-group"style="margin-top: 15px" type="email" placeholder="邮箱"></dt>
+        </dl>
+        <dl>
+            <dt>密码：<input name="password" class="form-group" type="password" placeholder="密码"></dt>
+        </dl>
+        <dl>
+            <dt><input type="submit" value="登录" style="width: 240px" class="btn btn-success"> </dt>
+        </dl>
+
+
+    </form>
+</div>
+<script src="/node_modules/jQuery/tmp/jquery.js"></script>
+<script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script>
+    $('#formlog').on('submit',function (e) {
+        e.preventDefault()
+        let userdata=$(this).serialize()
+        $.ajax({
+            url:'/login',
+            type:'post',
+            data:userdata,
+            dataType:'json',
+            success:function (data) {
+                if(data.success===0){
+                    window.location.href='/'
+                }else if(data.success===1){
+                    window.alert(data.measage)
+                }else if(data.success===2){
+                    window.alert(data.measage)
+                }
+        }
+        })
+    })
+</script>
+</body>
+</html>
